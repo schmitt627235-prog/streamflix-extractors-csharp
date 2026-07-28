@@ -15,7 +15,7 @@ namespace streamflix.extractors.Extensions
             services.AddSingleton<Parsing.AngleSharpHtmlParser>();
             services.AddSingleton<JsEngineService>();
 
-            // Register concrete extractors for batch-1..batch-4
+            // Register concrete extractors for batch-1..batch-5
             services.AddSingleton<Extractor, FilemoonExtractor>();
             services.AddSingleton<Extractor, RabbitstreamExtractor>();
             services.AddSingleton<Extractor, UpzoneExtractor>();
@@ -32,6 +32,14 @@ namespace streamflix.extractors.Extensions
             services.AddSingleton<Extractor, CloseloadExtractor>();
             services.AddSingleton<Extractor, LuluVdoExtractor>();
             services.AddSingleton<Extractor, VidPlyExtractor>();
+            services.AddSingleton<Extractor, MixDropExtractor>();
+            services.AddSingleton<Extractor, MailRuExtractor>();
+            services.AddSingleton<Extractor, GoogleDriveExtractor>();
+            services.AddSingleton<Extractor, AmazonDriveExtractor>();
+            services.AddSingleton<Extractor, GuploadExtractor>();
+            services.AddSingleton<Extractor, StreamSBExtractor>();
+            services.AddSingleton<Extractor, StreamlareExtractor>();
+            services.AddSingleton<Extractor, Mp4UploadExtractor>();
 
             services.AddSingleton<ExtractorResolver>(sp => new ExtractorResolver(
                 sp.GetRequiredService<ILogger<ExtractorResolver>>(),
