@@ -30,8 +30,8 @@ namespace streamflix.extractors.Extractors
             var iframe = doc.QuerySelector("iframe[src]");
             if (iframe != null) return new Video { Source = iframe.GetAttribute("src") };
 
-            // Robust regex: verbatim string with \S+ to avoid quote/escape issues
-            var m = System.Text.RegularExpressions.Regex.Match(html, @"https?://\S+\.(m3u8|mp4)");
+            // Korrekt escaped normal string (kein verbatim) -> keine Probleme beim Parsen
+            var m = System.Text.RegularExpressions.Regex.Match(html, "https?://\\S+\\.(m3u8|mp4)");
             if (m.Success) return new Video { Source = m.Value };
 
             throw new System.Exception("Gupload: no source found");
