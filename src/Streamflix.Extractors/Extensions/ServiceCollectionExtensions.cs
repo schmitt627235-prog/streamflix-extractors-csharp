@@ -25,6 +25,7 @@ namespace streamflix.extractors.Extensions
             services.AddSingleton<Extractor, VoeExtractor>();
             services.AddSingleton<Extractor, StreamtapeExtractor>();
             services.AddSingleton<Extractor, VidozaExtractor>();
+            services.AddSingleton<Extractor, DoodLaExtractor>();
 
             services.AddSingleton<ExtractorResolver>(sp => new ExtractorResolver(
                 sp.GetRequiredService<ILogger<ExtractorResolver>>(),
