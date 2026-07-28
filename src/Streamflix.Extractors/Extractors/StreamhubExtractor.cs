@@ -41,8 +41,8 @@ namespace streamflix.extractors.Extractors
                 return new Video { Source = src };
             }
 
-            // Korrigierter Regex: verbatim string, keine doppelten Backslashes
-            var m = System.Text.RegularExpressions.Regex.Match(html, @"https?://[^""]+\.(m3u8|mp4)");
+            // Robust regex: \S+ verhindert Probleme mit Anführungszeichen/Newlines
+            var m = System.Text.RegularExpressions.Regex.Match(html, @"https?://\S+\.(m3u8|mp4)");
             if (m.Success) return new Video { Source = m.Value };
 
             throw new System.Exception("Streamhub: no source found");
