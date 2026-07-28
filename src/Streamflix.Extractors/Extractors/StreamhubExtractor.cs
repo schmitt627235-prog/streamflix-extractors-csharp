@@ -41,7 +41,7 @@ namespace streamflix.extractors.Extractors
                 return new Video { Source = src };
             }
 
-            // Robust regex: \S+ verhindert Probleme mit Anführungszeichen/Newlines
+            // Robust regex: verbatim string with \S+ to avoid quote/escape issues
             var m = System.Text.RegularExpressions.Regex.Match(html, @"https?://\S+\.(m3u8|mp4)");
             if (m.Success) return new Video { Source = m.Value };
 
