@@ -24,7 +24,7 @@ namespace streamflix.extractors.Extractors
         public override async Task<Video> ExtractAsync(string link)
         {
             _logger.LogInformation("[AmazonDrive] Extracting {Link}", link);
-            // Amazon links sometimes are direct
+            // Korrigierter Regex: verbatim string, keine doppelten Backslashes
             var m = System.Text.RegularExpressions.Regex.Match(link, @"https?://[^""]+\.(mp4|m3u8)");
             if (m.Success) return new Video { Source = m.Value };
 
