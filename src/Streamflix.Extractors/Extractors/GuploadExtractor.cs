@@ -30,7 +30,7 @@ namespace streamflix.extractors.Extractors
             var iframe = doc.QuerySelector("iframe[src]");
             if (iframe != null) return new Video { Source = iframe.GetAttribute("src") };
 
-            // Robust regex: \S+ statt komplizierter char-class mit Anführungszeichen
+            // Robust regex: verbatim string with \S+ to avoid quote/escape issues
             var m = System.Text.RegularExpressions.Regex.Match(html, @"https?://\S+\.(m3u8|mp4)");
             if (m.Success) return new Video { Source = m.Value };
 
