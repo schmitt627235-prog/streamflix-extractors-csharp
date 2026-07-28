@@ -25,7 +25,7 @@ namespace streamflix.extractors.Extractors
         {
             _logger.LogInformation("[AmazonDrive] Extracting {Link}", link);
             // Amazon links sometimes are direct
-            var m = System.Text.RegularExpressions.Regex.Match(link, @"https?:\\/\\/[^"]+\\.(mp4|m3u8)");
+            var m = System.Text.RegularExpressions.Regex.Match(link, @"https?://[^""]+\.(mp4|m3u8)");
             if (m.Success) return new Video { Source = m.Value };
 
             var html = await _http.GetStringAsync(link).ConfigureAwait(false);
