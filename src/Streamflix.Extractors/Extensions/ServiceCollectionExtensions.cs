@@ -2,18 +2,29 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using streamflix.extractors.Http;
+using streamflix.extractors.Extractors;
+using streamflix.extractors.Js;
 
 namespace streamflix.extractors.Extensions
 {
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
         public static IServiceCollection AddStreamflixExtractors(this IServiceCollection services)
         {
             services.AddHttpClient<HttpClientService>();
             services.AddSingleton<Parsing.AngleSharpHtmlParser>();
+            services.AddSingleton<JsEngineService>();
 
-            // Register extractors here. For now register zero or a few stubs.
-            // In the full conversion step we'll add all concrete extractor implementations.
+            // Register concrete extractors for batch-1 and batch-2
+            services.AddSingleton<Extractor, FilemoonExtractor>();
+            services.AddSingleton<Extractor, RabbitstreamExtractor>();
+            services.AddSingleton<Extractor, UpzoneExtractor>();
+            services.AddSingleton<Extractor, StreamhubExtractor>();
+            services.AddSingleton<Extractor, VtubeExtractor>();
+            services.AddSingleton<Extractor, NuuploadExtractor>();
+            services.AddSingleton<Extractor, VoeExtractor>();
+            services.AddSingleton<Extractor, StreamtapeExtractor>();
+            services.AddSingleton<Extractor, VidozaExtractor>();
 
             services.AddSingleton<ExtractorResolver>(sp => new ExtractorResolver(
                 sp.GetRequiredService<ILogger<ExtractorResolver>>(),
