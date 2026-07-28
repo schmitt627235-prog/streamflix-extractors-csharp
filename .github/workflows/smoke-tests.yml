@@ -1,24 +1,35 @@
-steps:
-  - name: Checkout
-    uses: actions/checkout@v4
+name: Smoke Tests
 
-  - name: Setup .NET
-    uses: actions/setup-dotnet@v3
-    with:
-      dotnet-version: '8.0.x'
+on:
+  push:
+    branches: [ "convert/smoke-tests" ]
+  workflow_dispatch: {}
 
-  - name: Restore
-    run: dotnet restore
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
 
-  - name: Build
-    run: dotnet build --no-restore --configuration Release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  - name: Run Smoke Tester
-    run: |
-      dotnet run --project src/Streamflix.Extractors.SmokeTester/Streamflix.Extractors.SmokeTester.csproj --verbosity minimal 2>&1 | tee smoke-output.txt
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
 
-  - name: Upload smoke-output
-    uses: actions/upload-artifact@v3
-    with:
-      name: smoke-output
-      path: smoke-output.txt
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run Smoke Tester
+        run: |
+          dotnet run --project src/Streamflix.Extractors.SmokeTester/Streamflix.Extractors.SmokeTester.csproj --verbosity minimal 2>&1 | tee smoke-output.txt
+
+      - name: Upload smoke-output
+        uses: actions/upload-artifact@v3
+        with:
+          name: smoke-output
+          path: smoke-output.txt
